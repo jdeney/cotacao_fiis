@@ -17,7 +17,7 @@ VERSION = ['1.0.0']
 # Options
 parser = argparse.ArgumentParser(description='Extrator de dados de Cotaçoes de FIIS a partir do fundsexplorer.com.br.')
 parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {VERSION}')
-parser.add_argument('-o', '--output', help='Especifique o nome de saíde do seu arquivo. O Default é fundsexplorer_ranking.csv.', default='fundsexplorer_ranking.csv')
+parser.add_argument('-o', '--output', help='Especifique o nome de saíde do seu arquivo. O Default é fundsexplorer_ranking_output.csv.', default='fundsexplorer_ranking.csv')
 args = parser.parse_args()
 
 print(f'Started in:   {datetime.now().strftime("%B %d, %Y %H:%M:%S")}\n')
@@ -29,7 +29,7 @@ def setUpdate():
     except Exception as e:
         print(f'Error Install: {e}')
 
-# Criamos uma lista com 6 itens (número de etapas principais no seu processo)
+# status_bar
 progress_bar = tqdm(total=6, bar_format='{l_bar}{bar}| {percentage:3.0f}% ')
 
 # Inicialize o driver do Selenium
@@ -67,6 +67,7 @@ driver.quit()
 
 progress_bar.update(1)  # Update
 
+# atualize a listas dos seus fundos para filtrar apenas os de interesse:
 funds = ['VISC11', 
          'HGBS11', 
          'XPML11', 
