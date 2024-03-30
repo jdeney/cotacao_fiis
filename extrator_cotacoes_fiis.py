@@ -12,7 +12,7 @@ import pandas as pd
 from datetime import datetime
 
 # Versão do programa
-VERSION = ['1.0.0']
+VERSION = ['1.0.1']
 
 # Options
 parser = argparse.ArgumentParser(description='Extrator de dados de Cotaçoes de FIIS a partir do fundsexplorer.com.br.')
@@ -53,6 +53,10 @@ progress_bar.update(1)  # Update
 
 # Espere até que a tabela esteja carregada (pode ser necessário aumentar esse tempo)
 driver.implicitly_wait(10)
+
+# Add JavaScript para Clicar no Elemento para pegar todas as colunas
+select_all_checkbox = driver.find_element(By.ID, 'colunas-ranking__todos')
+driver.execute_script("arguments[0].click();", select_all_checkbox)
 
 # Extraia a tabela
 table = driver.find_element(By.CSS_SELECTOR, '.default-fiis-table__container.ranking-table')
